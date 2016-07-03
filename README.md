@@ -4,6 +4,10 @@ Authorization Framework for Rails 5
 
 Provides: ACL + Ownership + Permitted Params
 
+<center>
+  <img src='./docs/hold_the_door2.gif'>
+</center>
+
 ## Full Authentication/Authorization process in Rails
 
 0. Authenticate user (Authentication solution: Devise, Sorcery, Authlogic, etc.)
