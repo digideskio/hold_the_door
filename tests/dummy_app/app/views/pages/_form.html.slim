@@ -1,0 +1,25 @@
+- @page ||= Page.new
+
+= form_for @page do |f|
+  - if @page.errors.any?
+    #error_explanation.lh150.mb50
+      .mb20.b.fs16= "#{pluralize(@page.errors.count, "error")} prohibited this page from being saved:"
+      - @page.errors.full_messages.each do |msg|
+        .mb10= msg
+
+  - if @page.account
+    .mb20
+      .mb10.b= f.label :user_id
+      div= @page.account.name
+
+  .mb20
+    .mb10.b= f.label :title
+    div= f.text_field :title, class: 'ptz--input ptz--size-15  w250'
+  .mb20
+    .mb10.b= f.label :content
+    div= f.text_area :content, class: 'ptz--input ptz--size-15 w250'
+  .mb20
+    .mb10.b= f.label :moderation_comment
+    div= f.text_area :moderation_comment, class: 'ptz--input ptz--size-15 w250'
+  .actions
+    = f.submit 'Submit', class: 'ptz--btn ptz--size-15'

@@ -1,0 +1,17 @@
+.ma.pt20.fs15
+
+  .mb50.fs18
+    | Common password:
+    b< qwerty
+
+  - owner?(Page.new)
+
+  - if current_account
+    - current_account.owner?(Page.new)
+
+  = render template: 'accounts/index'
+  = render template: 'pages/index'
+
+  .mt20.mb50
+    = link_to 'New Page', new_page_path
+

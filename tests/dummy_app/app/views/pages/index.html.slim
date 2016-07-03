@@ -1,0 +1,27 @@
+.fs18.b.mb30 Pages
+
+.fs15.mb50
+  .ptz--table.w100p
+    .ptz--tr.b
+      .ptz--th.pl0.pt10.pr10.pb10 ID
+      .ptz--th.p10 Title
+      .ptz--th.p10 Owner
+      .ptz--th.p10 State
+      .ptz--th.pl10.pt10.pr0.pb10 Edit
+
+    - Page.all.order(:account_id, :state).each do |page|
+      .ptz--tr
+        .ptz--td.pl0.pt10.pr10.pb10
+          = page.id
+        .ptz--td.w100p.p10.lh120
+          - if page.state == 'published'
+            = link_to page.title, page
+          - else
+            = page.title
+        .ptz--td.w100p.p10.br-off
+          = page.account.name
+        .ptz--td.w100p.p10.br-off
+          = page.state
+        .ptz--td.pl10.pt10.pr0.pb10.br-off
+          = link_to 'Edit', edit_page_path(page)
+

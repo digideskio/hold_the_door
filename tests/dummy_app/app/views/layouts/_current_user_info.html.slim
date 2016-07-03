@@ -1,0 +1,22 @@
+.mb50.pt20
+  .fs18.mb20 Current Account
+
+  .fs15
+    - if account_signed_in?
+      .mb10
+        span.b= current_account.name
+        =>
+        ||
+        =>
+        = link_to "Sign out", destroy_account_session_path, method: :delete
+    - else
+      .mb10
+        | Guest
+        =>
+        ||
+        =>
+        = link_to "Sign in", new_account_session_path
+        =>
+        ||
+        =>
+        = link_to "Sign up", new_account_registration_path

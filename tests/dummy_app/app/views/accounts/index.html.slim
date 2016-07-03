@@ -1,0 +1,20 @@
+.fs18.b.mb30 Accounts info
+
+.fs15.mb50
+  .ptz--table.w100p
+    .ptz--tr.b
+      .ptz--th.pl0.pt10.pr10.pb10 Name
+      .ptz--th.p10 Email
+      .ptz--th.p10 Edit
+      .ptz--th.pl10.pt10.pr0.pb10 Autologin
+
+    - Account.all.each do |account|
+      .ptz--tr
+        .ptz--td.w30p.pl0.pt10.pr10.pb10
+          = account.name
+        .ptz--td.w100p.p10
+          = account.email
+        .ptz--td.w100p.p10
+          = link_to 'Edit', edit_account_path(account)
+        .ptz--td.pl10.pt10.pr0.pb10.br-off
+          = link_to 'Login now!', autologin_path(email: account.email)

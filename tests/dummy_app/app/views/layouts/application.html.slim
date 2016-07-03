@@ -1,0 +1,21 @@
+doctype html
+html.h100p.w100p(lang='en')
+  head
+    meta(charset='utf-8')
+    title Hold The Door! Test
+
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+    meta(http-equiv='X-UA-Compatible' content='IE=Edge,chrome=1')
+    = favicon_link_tag image_url('/favicon.ico')
+
+    = csrf_meta_tags
+
+    = yield :js
+    = yield :css
+
+  body.h100p.w100p.ffa#top
+    .ma.w800
+        = render partial: 'layouts/current_user_info'
+        = yield

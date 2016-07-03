@@ -1,0 +1,23 @@
+.ma.w800.pt20
+  .fs15.mb50= link_to 'To index page', '/'
+
+  - if flash[:notice]
+    .fs16.mb50.b
+      = flash[:notice]
+
+  .fs15
+    = form_for @account, method: :put do |f|
+      .mb20
+        .mb5.b= f.label :name
+        div= f.text_field :name, class: 'ptz--input ptz--size-15 w250'
+
+      .mb20
+        .mb5.b= f.label :email
+        div= f.text_field :email, class: 'ptz--input ptz--size-15  w250'
+
+      .mb20
+        .mb5.b= f.label :some_protected_field, 'Protected field (Only Admin can change it)'
+        div= f.text_field :some_protected_field, class: 'ptz--input ptz--size-15 w250'
+
+      .mb20
+        = f.submit 'Submit', class: 'ptz--btn ptz--size-15'
