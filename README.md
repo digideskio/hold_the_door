@@ -87,6 +87,13 @@ end
 
 ## How my Controller will be looked with HoldTheDoor gem?
 
+```ruby
+class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
+  # Close and Hold all Doors!
+  hold_the_door!
+end
+```
 
 ```ruby
 class PagesController < ApplicationController
@@ -106,6 +113,7 @@ class PagesController < ApplicationController
     Page.find params[:id]
   end
 end
+```
 
 ## License
 
