@@ -122,6 +122,131 @@ class PagesController < ApplicationController
 end
 ```
 
+### Installation
+
+```ruby
+gem 'hold_the_door'
+```
+
+```ruby
+rake install:hold_the_door
+```
+
+### File structure
+
+```
+app/permissions/
+└── hold_the_door
+    ├── acl.rb
+    ├── ownership.rb
+    └── permitted_params.rb
+```
+
+### ACL Definition
+
+```ruby
+module HoldTheDoor::ACL
+  def can?(user, scope, action, options)
+    # Admin can do everything
+    return true if user.try(:admin?)
+
+    role_name = user.try(:role) || 'guest'
+
+    # Get ACL (Acceess Control List) for this Role
+    acl = case role_name
+      when 'user'
+        user_acl
+      else
+        guest_acl
+    end
+
+    # Does user have this permission or not?
+    # It returns `true` if testable rule is exist
+    acl.try(:[], scope).try(:include?, action)
+  end
+
+  private
+
+  def user_acl
+    {
+      pages: [
+        :index,
+        :show,
+        :edit
+      ],
+      accounts: [
+        :index,
+        :show
+      ]
+    }
+  end
+
+  def guest_acl
+    {}
+  end
+end
+```
+
+### Ownership Definition
+
+```ruby
+module HoldTheDoor::Ownership
+  def owner?(user, obj, options)
+    # Admin is owner of everything
+    return true if user.admin?
+
+    # Simple ownership check
+    user.id == obj.account_id
+  end
+end
+```
+
+### Ownership Definition
+
+```ruby
+module HoldTheDoor::PermittedParams
+  def permitted_params(controller, options)
+    user   = options[:user]
+    params = controller.params
+    controller_name = controller.controller_name
+
+    case controller_name
+      when 'pages'
+        pages_params(user, params)
+      when 'accounts'
+        accounts_params(user, params)
+    end
+  end
+
+  private
+
+  def pages_params(user, params)
+    if user.admin?
+      params.require(:page)
+        .permit(
+          :title,
+          :content,
+          :state,
+
+          :account_id,
+          :moderation_comment,
+        )
+    else
+      params.require(:page)
+        .permit(
+          :title,
+          :content,
+          :state
+        )
+    end
+  end
+
+  def accounts_params(user, params)
+    {}
+  end
+end
+```
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
