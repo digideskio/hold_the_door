@@ -1,7 +1,5 @@
 # HoldTheDoor
 
-Your last chance to survive!
-
 <table>
 <tr>
   <td>
@@ -12,6 +10,8 @@ Your last chance to survive!
   </td>
 </tr>
 </table>
+
+Hold The Door! Don't miss the dark forces!
 
 ## Intro
 
