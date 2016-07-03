@@ -27,21 +27,25 @@ class PagesController < ApplicationController
 
   # 2. Access Permission to Action
   # Does a user have an access to Action in Controller?
-  # If you used to use CanCan: `authorize! :edit, Page`
+  # CanCan: `authorize! :edit, Page`
   before_action ->{ authorize_action!(:pages, :edit) }
 
   # 3. Load resource
-  # If you used to use CanCan: `load_resource`
+  # CanCan: `load_resource`
   before_action :set_page
 
   # 4. Ownership checking (now we have a resource and we can check it)
   # Is it an owner of this object? Can user update it?
-  # If you used to use CanCan: `load_resource`
+  # CanCan mixes it with ACL definitions in Ability class :'(
   before_action ->{ authorize_owner!(@page) }
 
   def edit
     # 5. `pages_params` - Definition of Permitted Params
-    # See below
+    # See definition of `pages_params` below
+    #
+    # CanCan was never ready for Strong Params,
+    # because CanCan was created before Strong Params
+    #
     @page.update pages_params
 
     redirect_to :back, notice: 'Page updated'
