@@ -4,7 +4,7 @@ Authorization Framework for Rails 5
 
 Provides: ACL + Ownership + Permitted Params
 
-## Authentication/Authorization process in Rails
+## Full Authentication/Authorization process in Rails
 
 0. Authenticate user (Authentication solution: Devise, Sorcery, Authlogic, etc.)
 0. **Access Permission to Action** (Authorization solution)
@@ -23,13 +23,16 @@ class PagesController < ApplicationController
 
   # 2. Access Permission to Action
   # Does a user have an access to Action in Controller?
+  # If you used to use CanCan: `authorize! :edit, Page`
   before_action ->{ authorize_action!(:pages, :edit) }
 
   # 3. Load resource
+  # If you used to use CanCan: `load_resource`
   before_action :set_page
 
   # 4. Ownership checking (now we have a resource and we can check it)
   # Is it an owner of this object? Can user update it?
+  # If you used to use CanCan: `load_resource`
   before_action ->{ authorize_owner!(@page) }
 
   def edit
@@ -69,6 +72,28 @@ class PagesController < ApplicationController
   end
 end
 ```
+
+## How my Controller will be looked with HoldTheDoor gem?
+
+
+```ruby
+class PagesController < ApplicationController
+  before_action :set_page
+
+  authorize_resource_name :page
+  before_action authorize_owner!
+
+  def edit
+    @page.update permitted_params
+    redirect_to :back, notice: 'Page updated'
+  end
+
+  private
+
+  def set_page
+    Page.find params[:id]
+  end
+end
 
 ## License
 
