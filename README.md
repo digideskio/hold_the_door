@@ -2,9 +2,16 @@
 
 Your last chance to survive!
 
-<center>
-  <img src='./docs/hold_the_door2.gif'>
-</center>
+<table>
+<tr>
+  <td>
+    <img src='./docs/hold_the_door.gif'>
+  </td>
+  <td>
+    <img src='./docs/hold_the_door2.gif'>
+  </td>
+</tr>
+</table>
 
 ## Intro
 
