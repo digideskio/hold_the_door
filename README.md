@@ -1,12 +1,16 @@
 # HoldTheDoor
 
-Authorization Framework for Rails 5
-
-Provides: ACL + Ownership + Permitted Params
+Your last chance to survive!
 
 <center>
   <img src='./docs/hold_the_door2.gif'>
 </center>
+
+## Intro
+
+HoldTheDoor! Authorization Framework for Rails 5
+
+Provides: ACL + Ownership + Permitted Params
 
 ## Full Authentication/Authorization process in Rails
 
