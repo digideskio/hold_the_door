@@ -268,7 +268,9 @@ end
 
 ```ruby
 # ACL checking
-@user.can?(:pages, edit)
+@user.can?(:pages, :edit)
+# or
+@user.can?(Page, :edit)
 ```
 
 ```ruby
@@ -289,9 +291,11 @@ end
 
 ```ruby
 # ACL checking
-current_user.can?(:pages, edit)
+current_user.can?(:pages, :edit)
 # or shortcut
-can?(:pages, edit)
+can?(:pages, :edit)
+# or
+can?(Page, :edit)
 ```
 
 ```ruby
@@ -319,7 +323,7 @@ can?(@page, :edit)
 ```ruby
 class ApplicationController < ActionController::Base
   hold_the_door!
-  # it's equal
+  # it's equal to:
   #
   # before_action :authenticate_user! (will be added only if you use Devise)
   # before_action :authorize_action!
@@ -330,20 +334,19 @@ end
 
 ```ruby
 class PagesController < ApplicationController
-  before_action :set_page
+  authorize_resource_name :page
 
-  before_action ->{ authorize_owner!(@page) }
+  before_action :set_page, only: :edit
+  before_action authorize_owner!, only: :edit
 end
 ```
 
-or
+or more obviously
 
 ```ruby
 class PagesController < ApplicationController
-  before_action :set_page
-
-  authorize_resource_name :page
-  before_action authorize_owner!(@page)
+  before_action :set_page, only: :edit
+  before_action ->{ authorize_owner!(@page) }, only: :edit
 end
 ```
 
