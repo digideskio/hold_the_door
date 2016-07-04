@@ -162,10 +162,14 @@ module HoldTheDoor::ACL
 
     # Does user have this permission or not?
     # It returns `true` if testable rule is exist
-    acl.try(:[], scope).try(:include?, action)
+    acl_check(acl, scope, action)
   end
 
   private
+
+  def acl_check(acl, scope, action)
+    acl.try(:[], scope).try(:include?, action) || false
+  end
 
   def user_acl
     {
@@ -196,18 +200,18 @@ module HoldTheDoor::Ownership
     return true if user.admin?
 
     # Simple ownership check
-    user.id == obj.account_id
+    user.id == obj.user_id
   end
 end
 ```
 
-### Ownership Definition
+### Permitted Params Definition
 
 ```ruby
 module HoldTheDoor::PermittedParams
   def permitted_params(controller, options)
-    user   = options[:user]
     params = controller.params
+    user   = controller.current_user
     controller_name = controller.controller_name
 
     case controller_name
@@ -222,13 +226,15 @@ module HoldTheDoor::PermittedParams
 
   def pages_params(user, params)
     if user.admin?
+      # Admin can change page's user
+      # and leave a moderation comment
       params.require(:page)
         .permit(
           :title,
           :content,
           :state,
 
-          :account_id,
+          :user_id,
           :moderation_comment,
         )
     else
@@ -244,6 +250,100 @@ module HoldTheDoor::PermittedParams
   def accounts_params(user, params)
     {}
   end
+end
+```
+
+## API
+
+### Model
+
+```ruby
+class User < ApplicationRecord
+  include HoldTheDoor::ModelHelpers
+end
+
+@user = User.find(1)
+@page = Page.find(1)
+```
+
+```ruby
+# ACL checking
+@user.can?(:pages, edit)
+```
+
+```ruby
+# Ownership checking
+@user.owner?(@page)
+```
+
+```ruby
+# Both ACL and Ownership checking
+@user.owner_can?(@page, :pages, :edit)
+# or shortcut
+@user.owner_can?(@page, :edit)
+# or shortcut
+@user.can?(@page, :edit)
+```
+
+### Controller/Views
+
+```ruby
+# ACL checking
+current_user.can?(:pages, edit)
+# or shortcut
+can?(:pages, edit)
+```
+
+```ruby
+# Ownership checking
+current_user.owner?(@page)
+# or shortcut
+owner?(@page)
+```
+
+```ruby
+# Both ACL and Ownership checking
+current_user.owner_can?(@page, :pages, :edit)
+# or with shortcuts
+owner_can?(@page, :pages, :edit)
+# or
+owner_can?(@page, :edit)
+# or
+can?(@page, :edit)
+```
+
+### Before filters
+
+#### Main door holder
+
+```ruby
+class ApplicationController < ActionController::Base
+  hold_the_door!
+  # it's equal
+  #
+  # before_action :authenticate_user! (will be added only if you use Devise)
+  # before_action :authorize_action!
+end
+```
+
+#### Ownership checking
+
+```ruby
+class PagesController < ApplicationController
+  before_action :set_page
+
+  before_action ->{ authorize_owner!(@page) }
+end
+```
+
+or
+
+```ruby
+class PagesController < ApplicationController
+  before_action :set_page
+
+  authorize_resource_name :page
+  before_action authorize_owner!(@page)
 end
 ```
 

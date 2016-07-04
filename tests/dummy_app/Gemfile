@@ -16,7 +16,7 @@ gem 'turbolinks', '~> 5.x'
 gem 'devise'
 gem 'protozaur', github: 'the-teacher/protozaur'
 
-gem 'hold_the_door', path: '../hold_the_door'
+gem 'hold_the_door', path: '../../../hold_the_door'
 
 group :development do
   gem 'web-console'

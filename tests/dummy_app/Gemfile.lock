@@ -52,7 +52,7 @@ GIT
     rspec-support (3.6.0.pre)
 
 PATH
-  remote: ../hold_the_door
+  remote: ../../../hold_the_door
   specs:
     hold_the_door (0.1.1)
 

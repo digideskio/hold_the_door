@@ -1,6 +1,7 @@
 require_relative '../version'
 
 require 'hold_the_door/base'
+require 'hold_the_door/exceptions'
 require 'hold_the_door/view_helpers'
 require 'hold_the_door/model_helpers'
 
