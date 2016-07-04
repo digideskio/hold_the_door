@@ -230,13 +230,15 @@ module HoldTheDoor::PermittedParams
     if user.admin?
       # Admin can change page's user
       # and leave a moderation comment
-      page:[
-        :title,
-        :content,
-        :state,
+      [
+        page: [
+          :title,
+          :content,
+          :state,
 
-        :user_id,
-        :moderation_comment,
+          :user_id,
+          :moderation_comment,
+        ]
       ]
     else
       [
