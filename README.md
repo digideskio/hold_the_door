@@ -65,7 +65,7 @@ class PagesController < ApplicationController
   private
 
   def set_page
-    Page.find params[:id]
+    @page = Page.find params[:id]
   end
 
   # 5. Definition of Permitted Params
@@ -111,13 +111,14 @@ class PagesController < ApplicationController
 
   def edit
     @page.update permitted_params
+
     redirect_to :back, notice: 'Page was updated'
   end
 
   private
 
   def set_page
-    Page.find params[:id]
+    @page = Page.find params[:id]
   end
 end
 ```
@@ -370,7 +371,7 @@ Just for Demo purposes
 
 ```ruby
 class PagesController < ApplicationController
-  authorize_resource_name :page
+  authorize_resource_name :my_page
 
   before_action :authenticate_user!  # Step 1
   before_action :authorize_action!   # Step 2
@@ -379,7 +380,7 @@ class PagesController < ApplicationController
 
   def edit
     # Step 5
-    @page.update permitted_params
+    @my_page.update permitted_params
 
     redirect_to :back, notice: 'Page was updated'
   end
@@ -387,7 +388,7 @@ class PagesController < ApplicationController
   private
 
   def set_page
-    Page.find params[:id]
+    @my_page = Page.find params[:id]
   end
 end
 ```
