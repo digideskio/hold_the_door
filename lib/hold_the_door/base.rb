@@ -4,7 +4,7 @@ module HoldTheDoor
 
     class_methods do
       def storage
-        HoldTheDoor::Storage.new
+        HoldTheDoor::Storage.instance
       end
 
       def owner?(user, obj, options = {})
