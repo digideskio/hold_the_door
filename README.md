@@ -107,7 +107,7 @@ class PagesController < ApplicationController
   before_action :set_page
 
   authorize_resource_name :page
-  before_action authorize_owner!
+  before_action :authorize_owner!
 
   def edit
     @page.update permitted_params
@@ -340,7 +340,7 @@ class PagesController < ApplicationController
   authorize_resource_name :page
 
   before_action :set_page
-  before_action authorize_owner!
+  before_action :authorize_owner!
 end
 ```
 
