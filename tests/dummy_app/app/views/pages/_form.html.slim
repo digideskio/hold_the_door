@@ -18,8 +18,11 @@
   .mb20
     .mb10.b= f.label :content
     div= f.text_area :content, class: 'ptz--input ptz--size-15 w250'
-  .mb20
-    .mb10.b= f.label :moderation_comment
-    div= f.text_area :moderation_comment, class: 'ptz--input ptz--size-15 w250'
+
+  - if permitted_param?(:page, :moderation_comment)
+    .mb20
+      .mb10.b= f.label :moderation_comment
+      div= f.text_area :moderation_comment, class: 'ptz--input ptz--size-15 w250'
+
   .actions
     = f.submit 'Submit', class: 'ptz--btn ptz--size-15'

@@ -15,7 +15,7 @@ class PagesController < ApplicationController
   end
 
   def create
-    @page = current_user.pages.new permitted_params
+    @page = current_user.pages.new with_permitted_params
 
     if @page.save
       redirect_to @page, notice: 'Page was successfully created.'
@@ -33,7 +33,7 @@ class PagesController < ApplicationController
   def edit; end
 
   def update
-    if @page.update_attributes permitted_params
+    if @page.update with_permitted_params
       redirect_to @page, notice: 'Page was successfully updated.'
     else
       render action: :edit

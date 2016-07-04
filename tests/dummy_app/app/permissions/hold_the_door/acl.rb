@@ -43,7 +43,7 @@ module HoldTheDoor::ACL
 
     # Does user have this permission or not?
     # It returns `true` if testable rule is exist
-    acl.try(:[], scope).try(:include?, action)
+    acl.first.try(:[], scope).try(:include?, action)
   end
 
   private
@@ -56,7 +56,7 @@ module HoldTheDoor::ACL
   # And any arbitrary access rules
   #
   def user_acl
-    {
+    [
       pages: [
         :index,
         :show,
@@ -66,11 +66,11 @@ module HoldTheDoor::ACL
         :index,
         :show
       ]
-    }
+    ]
   end
 
   # No special access rules for Guests
   def guest_acl
-    {}
+    []
   end
 end

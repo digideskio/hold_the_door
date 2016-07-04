@@ -33,10 +33,15 @@ module HoldTheDoor
       end
 
       def permitted_params(options = {})
-        options = options.with_indifferent_access
-        options[:user] = current_user_method
-
         HoldTheDoor.permitted_params(self, options)
+      end
+
+      def with_permitted_params(options = {})
+        HoldTheDoor.with_permitted_params(self, options)
+      end
+
+      def permitted_param?(scope, action = nil, options = {})
+        HoldTheDoor.permitted_param?(self, scope, action, options)
       end
 
       def authorize_owner!(obj, options = {})
