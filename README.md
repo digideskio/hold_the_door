@@ -104,9 +104,9 @@ end
 
 ```ruby
 class PagesController < ApplicationController
-  before_action :set_page
-
   authorize_resource_name :page
+
+  before_action :set_page
   before_action :authorize_owner!
 
   def edit
