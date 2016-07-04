@@ -169,11 +169,11 @@ module HoldTheDoor::ACL
   private
 
   def acl_check(acl, scope, action)
-    acl.try(:[], scope).try(:include?, action) || false
+    acl.first.try(:[], scope).try(:include?, action) || false
   end
 
   def user_acl
-    {
+    [
       pages: [
         :index,
         :show,
@@ -183,11 +183,11 @@ module HoldTheDoor::ACL
         :index,
         :show
       ]
-    }
+    ]
   end
 
   def guest_acl
-    {}
+    []
   end
 end
 ```
@@ -211,45 +211,46 @@ end
 ```ruby
 module HoldTheDoor::PermittedParams
   def permitted_params(controller, options)
-    params = controller.params
     user   = controller.current_user
     controller_name = controller.controller_name
 
     case controller_name
       when 'pages'
-        pages_params(user, params)
+        pages_params(user)
       when 'accounts'
-        accounts_params(user, params)
+        accounts_params(user)
+      else
+        []
     end
   end
 
   private
 
-  def pages_params(user, params)
+  def pages_params(user)
     if user.admin?
       # Admin can change page's user
       # and leave a moderation comment
-      params.require(:page)
-        .permit(
-          :title,
-          :content,
-          :state,
+      page:[
+        :title,
+        :content,
+        :state,
 
-          :user_id,
-          :moderation_comment,
-        )
+        :user_id,
+        :moderation_comment,
+      ]
     else
-      params.require(:page)
-        .permit(
+      [
+        page: [
           :title,
           :content,
           :state
-        )
+        ]
+      ]
     end
   end
 
-  def accounts_params(user, params)
-    {}
+  def accounts_params(user)
+    []
   end
 end
 ```
