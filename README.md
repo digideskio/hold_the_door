@@ -59,7 +59,7 @@ class PagesController < ApplicationController
     #
     @page.update pages_params
 
-    redirect_to :back, notice: 'Page updated'
+    redirect_to :back, notice: 'Page was updated'
   end
 
   private
@@ -111,7 +111,7 @@ class PagesController < ApplicationController
 
   def edit
     @page.update permitted_params
-    redirect_to :back, notice: 'Page updated'
+    redirect_to :back, notice: 'Page was updated'
   end
 
   private
@@ -339,8 +339,8 @@ end
 class PagesController < ApplicationController
   authorize_resource_name :page
 
-  before_action :set_page, only: :edit
-  before_action authorize_owner!, only: :edit
+  before_action :set_page
+  before_action authorize_owner!
 end
 ```
 
@@ -348,8 +348,8 @@ or more obviously
 
 ```ruby
 class PagesController < ApplicationController
-  before_action :set_page, only: :edit
-  before_action ->{ authorize_owner!(@page) }, only: :edit
+  before_action :set_page
+  before_action ->{ authorize_owner!(@page) }
 end
 ```
 
@@ -359,7 +359,7 @@ end
 class PagesController < ApplicationController
   def edit
     @page.update permitted_params
-    redirect_to :back, notice: 'Page updated'
+    redirect_to :back, notice: 'Page was updated'
   end
 end
 ```
@@ -381,7 +381,7 @@ class PagesController < ApplicationController
     # Step 5
     @page.update permitted_params
 
-    redirect_to :back, notice: 'Page updated'
+    redirect_to :back, notice: 'Page was updated'
   end
 
   private
