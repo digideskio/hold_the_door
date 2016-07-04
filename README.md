@@ -289,8 +289,9 @@ end
 
 ### Controller/Views
 
+#### ACL checking
+
 ```ruby
-# ACL checking
 current_user.can?(:pages, :edit)
 # or shortcut
 can?(:pages, :edit)
@@ -298,15 +299,17 @@ can?(:pages, :edit)
 can?(Page, :edit)
 ```
 
+#### Ownership checking
+
 ```ruby
-# Ownership checking
 current_user.owner?(@page)
 # or shortcut
 owner?(@page)
 ```
 
+#### Both ACL and Ownership checking
+
 ```ruby
-# Both ACL and Ownership checking
 current_user.owner_can?(@page, :pages, :edit)
 # or with shortcuts
 owner_can?(@page, :pages, :edit)
@@ -347,6 +350,45 @@ or more obviously
 class PagesController < ApplicationController
   before_action :set_page, only: :edit
   before_action ->{ authorize_owner!(@page) }, only: :edit
+end
+```
+
+#### Permitted params
+
+```ruby
+class PagesController < ApplicationController
+  def edit
+    @page.update permitted_params
+    redirect_to :back, notice: 'Page updated'
+  end
+end
+```
+
+## Full Authentication/Authorization process
+
+Just for Demo purposes
+
+```ruby
+class PagesController < ApplicationController
+  authorize_resource_name :page
+
+  before_action :authenticate_user!  # Step 1
+  before_action :authorize_action!   # Step 2
+  before_action :set_page            # Step 3
+  before_action authorize_owner!     # Step 4
+
+  def edit
+    # Step 5
+    @page.update permitted_params
+
+    redirect_to :back, notice: 'Page updated'
+  end
+
+  private
+
+  def set_page
+    Page.find params[:id]
+  end
 end
 ```
 
