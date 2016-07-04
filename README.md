@@ -110,7 +110,7 @@ class PagesController < ApplicationController
   before_action :authorize_owner!
 
   def edit
-    @page.update permitted_params
+    @page.update with_permitted_params
 
     redirect_to :back, notice: 'Page was updated'
   end
@@ -320,6 +320,26 @@ owner_can?(@page, :edit)
 can?(@page, :edit)
 ```
 
+#### Permitted Parameters
+
+```ruby
+with_permitted_params
+```
+
+```ruby
+def edit
+  @my_page.update with_permitted_params
+
+  redirect_to :back, notice: 'Page was updated'
+end
+```
+
+```ruby
+current_user.permited_param?(:page, :title)
+# or shortcut
+permitted_param?(:page, :title)
+```
+
 ### Before filters
 
 #### Main door holder
@@ -359,7 +379,7 @@ end
 ```ruby
 class PagesController < ApplicationController
   def edit
-    @page.update permitted_params
+    @page.update with_permitted_params
     redirect_to :back, notice: 'Page was updated'
   end
 end
@@ -380,7 +400,7 @@ class PagesController < ApplicationController
 
   def edit
     # Step 5
-    @my_page.update permitted_params
+    @my_page.update with_permitted_params
 
     redirect_to :back, notice: 'Page was updated'
   end
