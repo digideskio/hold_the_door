@@ -11,7 +11,7 @@
 </tr>
 </table>
 
-Hold The Door! Don't miss the dark forces!
+Hold The Door! Don't pass the dark forces!
 
 ## Intro
 
