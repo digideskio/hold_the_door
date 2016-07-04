@@ -375,7 +375,7 @@ class PagesController < ApplicationController
   before_action :authenticate_user!  # Step 1
   before_action :authorize_action!   # Step 2
   before_action :set_page            # Step 3
-  before_action authorize_owner!     # Step 4
+  before_action :authorize_owner!    # Step 4
 
   def edit
     # Step 5
