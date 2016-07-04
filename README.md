@@ -1,4 +1,4 @@
-# HoldTheDoor
+# HoldTheDoor!
 
 <table>
 <tr>
@@ -17,7 +17,9 @@ Hold The Door! Don't miss the dark forces!
 
 HoldTheDoor! Authorization Framework for Rails 5
 
-Provides: ACL + Ownership + Permitted Params
+**Provides:** ACL + Ownership + Permitted Params
+
+The only authorization solution for modern Rails Apps
 
 ## Full Authentication/Authorization process in Rails
 
