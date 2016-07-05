@@ -55,6 +55,8 @@ end
 
 ## How my Views will look with HoldTheDoor gem?
 
+For Demo purposes we use SLIM template language here
+
 ```slim
 = form_for @page do |f|
     .field
