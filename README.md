@@ -13,15 +13,15 @@ Hold The Door! Don't pass the dark forces!
 </tr>
 </table>
 
-## Intro
+### Intro
 
 HoldTheDoor! Authorization Framework for Rails 5
 
-Authorization solution created for modern Rails Apps
+Authorization solution created special for modern Rails Apps
 
 **Provides:** ACL + Ownership + Permitted Params<sup>&beta;</sup>
 
-## How my Controllers will look with HoldTheDoor gem?
+### How my Controllers will look with HoldTheDoor gem?
 
 For demo purposes we use just `edit` action here
 
@@ -53,7 +53,7 @@ class PagesController < ApplicationController
 end
 ```
 
-## How my Views will look with HoldTheDoor gem?
+### How my Views will look with HoldTheDoor gem?
 
 For Demo purposes we use SLIM template language here
 
@@ -81,17 +81,29 @@ For Demo purposes we use SLIM template language here
     = f.submit 'Submit'
 ```
 
-### Installation
+## Installation
+
+#### 1. Add gem in you Gemfile
 
 ```ruby
 gem 'hold_the_door'
 ```
 
+#### 2. Bundle install
+
+```ruby
+bundle install
+```
+
+#### 3. Install required files
+
 ```ruby
 rake install:hold_the_door
 ```
 
-### File structure
+It will add `config/initializers/hold_the_door.rb`
+
+And create the following **file structure**
 
 ```
 app/permissions/
@@ -100,6 +112,26 @@ app/permissions/
     ├── ownership.rb
     └── permitted_params.rb
 ```
+
+#### 4. Define ACL logic
+
+[How to define ACL logic](http://example.com)
+
+#### 5. Define Ownership logic
+
+[How to define Ownership logic](http://example.com)
+
+#### 6. Define Permitted Params<sup>&beta;</sup> logic
+
+[How to define Permitted Params<sup>&beta;</sup> logic](http://example.com)
+
+[Model API](http://example.com)
+
+[Controller/View API](http://example.com)
+
+[Permitted Params API](http://example.com)
+
+#### 7. Learn the API
 
 ### ACL Definition
 
