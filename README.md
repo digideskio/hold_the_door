@@ -17,102 +17,30 @@ Hold The Door! Don't pass the dark forces!
 
 HoldTheDoor! Authorization Framework for Rails 5
 
-The only authorization solution created for modern Rails Apps
+Authorization solution created for modern Rails Apps
 
 **Provides:** ACL + Ownership + Permitted Params<sup>&beta;</sup>
 
-## Full Authentication/Authorization process in Rails
+## How my Controller will look with HoldTheDoor gem?
 
-0. Authenticate user (Authentication solution: Devise, Sorcery, Authlogic, etc.)
-0. **Access Permission to Action** (Authorization solution)
-0. Load resourse (Application level)
-0. **Ownership checking** (Authorization solution)
-0. **Definition of Permitted Params** (Authorization solution)
-
-### An Example
-
-For simplicity just `edit` action will be illustrated here
-
-```ruby
-class PagesController < ApplicationController
-  # 1. Authentication process (Devise)
-  before_action :authenticate_user!
-
-  # 2. Access Permission to Action
-  # Does a user have an access to Action in Controller?
-  # CanCan: `authorize! :edit, Page`
-  before_action ->{ authorize_action!(:pages, :edit) }
-
-  # 3. Load resource
-  # CanCan: `load_resource`
-  before_action :set_page
-
-  # 4. Ownership checking (now we have a resource and we can check it)
-  # Is it an owner of this object? Can user update it?
-  # CanCan mixes it with ACL definitions in Ability class :'(
-  before_action ->{ authorize_owner!(@page) }
-
-  def edit
-    # 5. `pages_params` - Definition of Permitted Params
-    # See definition of `pages_params` below
-    #
-    # CanCan was never ready for Strong Params,
-    # because CanCan was created before Strong Params
-    #
-    @page.update pages_params
-
-    redirect_to :back, notice: 'Page was updated'
-  end
-
-  private
-
-  def set_page
-    @page = Page.find params[:id]
-  end
-
-  # 5. Definition of Permitted Params
-  def pages_params
-    if current_user.admin?
-      params.require(:page)
-        .permit(
-          :title,
-          :content,
-          :state,
-
-          :user_id,
-          :moderation_comment,
-        )
-    else
-      params.require(:page)
-        .permit(
-          :title,
-          :content,
-          :state
-        )
-    end
-  end
-end
-```
-
-## How my Controller will be looked with HoldTheDoor gem?
+For demo purposes we use just `edit` action here
 
 ```ruby
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  # Close and Hold all Doors!
   hold_the_door!
 end
 ```
 
 ```ruby
 class PagesController < ApplicationController
-  authorize_resource_name :page
+  authorize_resource_name :editable_page
 
   before_action :set_page
   before_action :authorize_owner!
 
   def edit
-    @page.update with_permitted_params
+    @editable_page.update with_permitted_params
 
     redirect_to :back, notice: 'Page was updated'
   end
@@ -120,9 +48,34 @@ class PagesController < ApplicationController
   private
 
   def set_page
-    @page = Page.find params[:id]
+    @editable_page = Page.find params[:id]
   end
 end
+```
+
+## How my Views will look with HoldTheDoor gem?
+
+```slim
+= form_for @page do |f|
+  - if can?(@page, :update_user)
+      .field
+        = f.label :user_id
+        = f.text_field :user_id
+    
+    .field
+      = f.label :title
+      = f.text_field :title
+
+    .field
+      = f.label :content
+      = f.text_area :content
+
+  - if permitted_param?(@page, :moderation_comment)
+      = f.label :moderation_comment
+      = f.text_area :moderation_comment
+
+  .actions
+    = f.submit 'Submit'
 ```
 
 ### Installation
@@ -414,6 +367,79 @@ class PagesController < ApplicationController
 
   def set_page
     @my_page = Page.find params[:id]
+  end
+end
+```
+
+## Full Authentication/Authorization process in Rails
+
+0. Authenticate user (Authentication solution: Devise, Sorcery, Authlogic, etc.)
+0. **Access Permission to Action** (Authorization solution)
+0. Load resourse (Application level)
+0. **Ownership checking** (Authorization solution)
+0. **Definition of Permitted Params** (Authorization solution)
+
+### An Example
+
+For simplicity just `edit` action will be illustrated here
+
+```ruby
+class PagesController < ApplicationController
+  # 1. Authentication process (Devise)
+  before_action :authenticate_user!
+
+  # 2. Access Permission to Action
+  # Does a user have an access to Action in Controller?
+  # CanCan: `authorize! :edit, Page`
+  before_action ->{ authorize_action!(:pages, :edit) }
+
+  # 3. Load resource
+  # CanCan: `load_resource`
+  before_action :set_page
+
+  # 4. Ownership checking (now we have a resource and we can check it)
+  # Is it an owner of this object? Can user update it?
+  # CanCan mixes it with ACL definitions in Ability class :'(
+  before_action ->{ authorize_owner!(@page) }
+
+  def edit
+    # 5. `pages_params` - Definition of Permitted Params
+    # See definition of `pages_params` below
+    #
+    # CanCan was never ready for Strong Params,
+    # because CanCan was created before Strong Params
+    #
+    @page.update pages_params
+
+    redirect_to :back, notice: 'Page was updated'
+  end
+
+  private
+
+  def set_page
+    @page = Page.find params[:id]
+  end
+
+  # 5. Definition of Permitted Params
+  def pages_params
+    if current_user.admin?
+      params.require(:page)
+        .permit(
+          :title,
+          :content,
+          :state,
+
+          :user_id,
+          :moderation_comment,
+        )
+    else
+      params.require(:page)
+        .permit(
+          :title,
+          :content,
+          :state
+        )
+    end
   end
 end
 ```
