@@ -133,11 +133,13 @@ app/permissions/
 
 ## FAQ
 
-* [Why HoldTheDoor is a Authorization Framework?](http://example.com)
+* [Why HoldTheDoor is an Authorization Framework?](http://example.com)
 * [What does it mean ACL?](http://example.com)
 * [Why I have to try HoldTheDoor instead CanCan?](http://example.com)
 * [What does it mean &beta; in `Permitted Params` functionality?](http://example.com)
 * [How typical Authentication/Authorization process goes in Rails?](http://example.com)
+* [Where I can find the Demo App for HoldTheDoor?](http://example.com)
+* [How can I start tests?](http://example.com)
 
 ## License
 
