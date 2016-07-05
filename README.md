@@ -57,11 +57,6 @@ end
 
 ```slim
 = form_for @page do |f|
-  - if can?(@page, :update_user)
-      .field
-        = f.label :user_id
-        = f.text_field :user_id
-    
     .field
       = f.label :title
       = f.text_field :title
@@ -70,9 +65,15 @@ end
       = f.label :content
       = f.text_area :content
 
+  - if can?(@page, :update_user)
+      .field
+        = f.label :user_id
+        = f.text_field :user_id
+
   - if permitted_param?(@page, :moderation_comment)
-      = f.label :moderation_comment
-      = f.text_area :moderation_comment
+      .field
+        = f.label :moderation_comment
+        = f.text_area :moderation_comment
 
   .actions
     = f.submit 'Submit'
