@@ -3,10 +3,10 @@
 <table>
 <tr>
   <td>
-    <img src='./docs/hold_the_door.gif'>
+    <img src='./docs/hold_the_door2.gif'>
   </td>
   <td>
-    <img src='./docs/hold_the_door2.gif'>
+    <img src='./docs/hold_the_door.gif'>
   </td>
 </tr>
 </table>
