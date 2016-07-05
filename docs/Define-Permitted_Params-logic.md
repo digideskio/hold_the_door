@@ -3,9 +3,12 @@
 ```ruby
 module HoldTheDoor::PermittedParams
   def permitted_params(controller, options)
-    user   = controller.current_user
+    user = controller.current_account
     controller_name = controller.controller_name
 
+    #
+    # Select Array of Permitted Params for this Controller
+    #
     case controller_name
       when 'pages'
         pages_params(user)
@@ -19,16 +22,17 @@ module HoldTheDoor::PermittedParams
   private
 
   def pages_params(user)
-    if user.admin?
-      # Admin can change page's user
-      # and leave a moderation comment
+    #
+    # Select Array of Permitted Params for this user's Role
+    #
+    if user.try(:admin?)
       [
         page: [
           :title,
           :content,
           :state,
 
-          :user_id,
+          :account_id,
           :moderation_comment,
         ]
       ]

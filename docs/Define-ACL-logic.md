@@ -16,17 +16,19 @@ module HoldTheDoor::ACL
         guest_acl
     end
 
-    # Does user have this permission or not?
-    # It returns `true` if testable rule is exist
-    acl_check(acl, scope, action)
+    # Does this user have this permission or not?
+    acl.first.try(:[], scope).try(:include?, action)
   end
 
   private
 
-  def acl_check(acl, scope, action)
-    acl.first.try(:[], scope).try(:include?, action) || false
-  end
-
+  # ==> Access Control List <==
+  #
+  # Definition of Access Rules for specific user's role
+  # Formed according to Rails naming of Controller/Action
+  # It can describes access rules to controller's actions
+  # And any arbitrary access rules
+  #
   def user_acl
     [
       pages: [
@@ -41,6 +43,7 @@ module HoldTheDoor::ACL
     ]
   end
 
+  # No special Access rules for Guests
   def guest_acl
     []
   end

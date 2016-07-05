@@ -4,7 +4,7 @@
 #
 module HoldTheDoor::PermittedParams
   def permitted_params(controller, options)
-    user   = controller.current_account
+    user = controller.current_account
     controller_name = controller.controller_name
 
     case controller_name
@@ -22,8 +22,6 @@ module HoldTheDoor::PermittedParams
   def pages_params(user)
     if user.try(:admin?)
       [
-        :a, :b, :c,
-
         page: [
           :title,
           :content,
@@ -45,6 +43,6 @@ module HoldTheDoor::PermittedParams
   end
 
   def accounts_params(user)
-    {}
+    []
   end
 end
