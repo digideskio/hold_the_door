@@ -5,10 +5,10 @@ Hold The Door! Don't pass the dark forces!
 <table>
 <tr>
   <td>
-    <img src='./docs/hold_the_door2.gif'>
+    <img src='docs/images/hold_the_door2.gif'>
   </td>
   <td>
-    <img src='./docs/hold_the_door.gif'>
+    <img src='docs/images/hold_the_door.gif'>
   </td>
 </tr>
 </table>
@@ -113,31 +113,31 @@ app/permissions/
 
 #### 4. Define ACL logic
 
-* [How to define ACL logic](docs/Define_ACL_logic.md)
+* [How to define ACL logic](docs/Define-ACL-logic.md)
 
 #### 5. Define Ownership logic
 
-* [How to define Ownership logic](http://example.com)
+* [How to define Ownership logic](docs/Define-Ownership-logic.md)
 
 #### 6. Define Permitted Params<sup>&beta;</sup> logic
 
-* [How to define Permitted Params<sup>&beta;</sup> logic](http://example.com)
+* [How to define Permitted Params<sup>&beta;</sup> logic](docs/Define-Permitted_Params-logic.md)
 
 #### 7. Learn the API
 
-* [Model API](http://example.com)
-* [Controller/View API](http://example.com)
-* [Permitted Params API](http://example.com)
+* [Model API](docs/API.md)
+* [Controller/View API](docs/API.md)
+* [Permitted Params API](docs/API.md)
 
 ## FAQ
 
-* [Why HoldTheDoor is an Authorization Framework?](http://example.com)
-* [What does it mean ACL?](http://example.com)
-* [Why I have to try HoldTheDoor instead CanCan?](http://example.com)
-* [What does it mean &beta; in `Permitted Params` functionality?](http://example.com)
-* [How typical Authentication/Authorization process goes in Rails?](http://example.com)
-* [Where I can find the Demo App for HoldTheDoor?](http://example.com)
-* [How can I start tests?](http://example.com)
+* [Why HoldTheDoor is an Authorization Framework?](docs/FAQ.md)
+* [What does it mean ACL?](docs/FAQ.md)
+* [Why I have to try HoldTheDoor instead CanCan?](docs/FAQ.md)
+* [What does it mean &beta; in `Permitted Params` functionality?](docs/FAQ.md)
+* [How typical Authentication/Authorization process goes in Rails?](docs/FAQ.md)
+* [Where I can find the Demo App for HoldTheDoor?](docs/FAQ.md)
+* [How can I start tests?](docs/FAQ.md)
 
 ## License
 

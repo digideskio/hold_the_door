@@ -1,1 +1,0 @@
-define-permitted-paramsβ-logic
