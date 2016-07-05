@@ -137,6 +137,7 @@ app/permissions/
 * [What does it mean ACL?](http://example.com)
 * [Why I have to try HoldTheDoor instead CanCan?](http://example.com)
 * [What does it mean &beta; in `Permitted Params` functionality?](http://example.com)
+* [How typical Authentication/Authorization process goes in Rails?](http://example.com)
 
 ## License
 
