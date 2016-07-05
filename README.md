@@ -125,13 +125,13 @@ app/permissions/
 
 [How to define Permitted Params<sup>&beta;</sup> logic](http://example.com)
 
+#### 7. Learn the API
+
 [Model API](http://example.com)
 
 [Controller/View API](http://example.com)
 
 [Permitted Params API](http://example.com)
-
-#### 7. Learn the API
 
 ### ACL Definition
 
