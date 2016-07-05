@@ -15,9 +15,7 @@ Hold The Door! Don't pass the dark forces!
 
 ### Intro
 
-HoldTheDoor! Authorization Framework for Rails 5
-
-Authorization solution created special for modern Rails Apps
+HoldTheDoor! Authorization Framework for Rails 5 created special for modern Rails Apps
 
 **Provides:** ACL + Ownership + Permitted Params<sup>&beta;</sup>
 
