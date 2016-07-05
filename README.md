@@ -113,7 +113,7 @@ app/permissions/
 
 #### 4. Define ACL logic
 
-* [How to define ACL logic](http://example.com)
+* [How to define ACL logic](docs/Define_ACL_logic.md)
 
 #### 5. Define Ownership logic
 
