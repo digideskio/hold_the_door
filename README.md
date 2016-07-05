@@ -21,7 +21,7 @@ Authorization solution created for modern Rails Apps
 
 **Provides:** ACL + Ownership + Permitted Params<sup>&beta;</sup>
 
-## How my Controller will look with HoldTheDoor gem?
+## How my Controllers will look with HoldTheDoor gem?
 
 For demo purposes we use just `edit` action here
 
