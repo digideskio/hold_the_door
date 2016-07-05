@@ -1,5 +1,7 @@
 # HoldTheDoor!
 
+Hold The Door! Don't pass the dark forces!
+
 <table>
 <tr>
   <td>
@@ -10,8 +12,6 @@
   </td>
 </tr>
 </table>
-
-Hold The Door! Don't pass the dark forces!
 
 ## Intro
 
